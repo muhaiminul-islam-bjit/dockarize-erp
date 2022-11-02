@@ -1,0 +1,49 @@
+@import "../../../styles/index.scss";
+
+.a-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 1rem;
+    background-color: #ffcf52;
+    border-color: #ffcf52;
+    outline: none;
+    border: 1px;
+    transition: 0.3s;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+
+    &:focus-visible {
+        border-color: #ffcf52;
+        outline: none;
+        border: 1px;
+    }
+
+    &:hover {
+        background-color: #ffd66c;
+    }
+
+    &:active {
+        border-color: #ffcf52;
+        outline: none;
+        border: 1px;
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    }
+
+    &--primary {
+        font-size: 16px;
+        font-weight: $font-bold;
+        color: $color-secondary05;
+        background: $color-button-gradation;
+        background-size: 200% auto;
+        transition: all $micro-animation-duration ease-out;
+        width: 240px;
+        padding: 12px;
+        border-radius: 26px;
+        box-shadow: 0 12px 24px $color-shadow-button;
+
+        &:hover {
+            background-position: 100% 0;
+        }
+    }
+}

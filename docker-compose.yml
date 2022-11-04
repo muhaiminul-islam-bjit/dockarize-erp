@@ -65,6 +65,8 @@ services:
     #   - WDS_SOCKET_PORT=0
     ports:
       - 3000:3000
+    networks:
+      - laravel
 
   php:
     build:

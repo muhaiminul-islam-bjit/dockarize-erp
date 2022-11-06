@@ -1,9 +1,9 @@
 @import "styles/index.scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;700&display=swap');
 
-html {
-  background: whitesmoke;
-}
+// html {
+//   background: whitesmoke;
+// }
 
 * {
   box-sizing: border-box;
@@ -16,6 +16,8 @@ h1,h2,h3,h4,p{
 
 body {
   font-family: 'Inter', sans-serif;
+  color: #434343;
+  background-color: #f7f9fa;
 }
 
 p {

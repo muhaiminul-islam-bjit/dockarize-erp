@@ -4,12 +4,15 @@ import { getJwt } from "../../../services/authServices";
 import MainBody from "../../organism/mainBody/mainBody";
 import Sidebar from "../../molecules/sidebar/sidebar";
 import "./admin.scss";
+import SidebarLight from "../../molecules/sidebarlight/sidebarlight";
+import { type } from "os";
 
 interface AdminProps {
   children: React.ReactNode;
+  type: "facit" | "light";
 }
 
-const Admin: React.FC<AdminProps> = ({ children }) => {
+const Admin: React.FC<AdminProps> = ({ children, type }) => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const handleSidebarIconClick = () => {
@@ -24,9 +27,21 @@ const Admin: React.FC<AdminProps> = ({ children }) => {
   return (
     <div className="dashboard__wrapper">
       <div className="dashboard__sidebar">
-        <Sidebar handleSidebarIconClick={handleSidebarIconClick} sideBarActive={sidebarOpen} />
+        {type === "light" ? (
+          <SidebarLight
+            handleSidebarIconClick={handleSidebarIconClick}
+            sideBarActive={sidebarOpen}
+          />
+        ) : (
+          <Sidebar
+            handleSidebarIconClick={handleSidebarIconClick}
+            sideBarActive={sidebarOpen}
+          />
+        )}
       </div>
-      <div className={`dashboard__mainBody ${!sidebarOpen && "dashboard--wide"}`} >
+      <div
+        className={`dashboard__mainBody ${!sidebarOpen && "dashboard--wide"}`}
+      >
         <MainBody>{children}</MainBody>
       </div>
     </div>

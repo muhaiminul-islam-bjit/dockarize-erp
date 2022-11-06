@@ -1,0 +1,73 @@
+@import "../../../styles/index.scss";
+
+.a-menu {
+  &__item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #0000;
+    border-radius: 24px;
+    padding: 5px 20px;
+    transition: border 0.3s ease-out, padding 0.3s ease-out,
+      margin 0.3s ease-out, width 0.3s ease-out, height 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 10px;
+
+    &:hover {
+      border: 1px solid #c3defe;
+      color: #0e367d;
+    }
+    &.active {
+      background-color: #c3defe4d;
+      border: 1px solid #c3defe;
+    }
+    &--withSubMenu {
+      display: block;
+      height: 50px;
+      overflow: hidden;
+    }
+    &--active {
+      height: 100%;
+    }
+  }
+
+  &__subMenuWrapper {
+    padding-left: 10px;
+  }
+
+  &__subMenu {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    color: #434343;
+    &.active {
+      color: #0e367d;
+    }
+  }
+
+  &__subMenuLabel {
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  &__icon {
+    font-size: 24px;
+    color: #434343;
+  }
+
+  &__label {
+    color: #434343;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 12px;
+    opacity: 1;
+    transition: opacity 0.3s ease-out 0.2s, visibility 0.3s ease-out 0.3s;
+    white-space: nowrap;
+
+    &--subMenu {
+      position: relative;
+      top: -4px;
+    }
+  }
+}

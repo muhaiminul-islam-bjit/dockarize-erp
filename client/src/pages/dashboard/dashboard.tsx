@@ -7,7 +7,7 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   return (
-    <Admin>
+    <Admin type="light">
       <div className="p-dashboard">{children}</div>
     </Admin>
   );

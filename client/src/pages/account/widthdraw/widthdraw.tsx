@@ -56,7 +56,7 @@ const Widthdraw: React.FC = () => {
     }, ["accounts"]);
     console.log(data);
     return (
-      <Admin>
+      <Admin type="light">
         <Header Tag="h2" text="Widthdraw Amount"></Header>
         <Container margin="12">
         <Col className="gutter-row" span={8}>

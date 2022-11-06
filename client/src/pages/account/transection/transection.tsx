@@ -4,7 +4,7 @@ import Admin from "../../../components/templates/dashboard/admin";
 
 const Transection = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <List
         listUrl="get-all-transection"
         tableColumn={[

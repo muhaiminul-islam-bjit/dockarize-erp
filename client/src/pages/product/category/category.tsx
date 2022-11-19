@@ -4,7 +4,7 @@ import List from "../../../components/organism/list/list";
 
 const Category: React.FC = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <List
         buttontext="Create New Category"
         deleteUrl="delete-category"

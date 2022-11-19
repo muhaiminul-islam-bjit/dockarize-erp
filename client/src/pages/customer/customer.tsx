@@ -30,7 +30,7 @@ const Customer: React.FC = () => {
     },
   ];
   return (
-    <Admin>
+    <Admin type="light">
       <List
         buttontext={buttonText}
         deleteUrl={deleteUrl}

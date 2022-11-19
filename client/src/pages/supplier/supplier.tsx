@@ -4,7 +4,7 @@ import List from "../../components/organism/list/list";
 
 const Supplier: React.FC = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <List
         buttontext="Create New Supplier"
         deleteUrl="delete-supplier"

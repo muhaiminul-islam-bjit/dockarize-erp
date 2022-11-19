@@ -49,7 +49,7 @@ const Details: React.FC = () => {
     },
   ];
   return (
-    <Admin>
+    <Admin type="light">
       <div className="p-purchaseDetails">
         <Descriptions title="Purchase Details" layout="vertical" bordered>
           <Descriptions.Item label="Supplier">

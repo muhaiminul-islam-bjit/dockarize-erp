@@ -15,7 +15,7 @@ const Account: React.FC = () => {
     fechData();
   });
   return (
-    <Admin>
+    <Admin type="light">
       <Container align="center" margin="0">
         <Badge isLarge label={`Total Balance: ${totalBalance}`}></Badge>
       </Container>

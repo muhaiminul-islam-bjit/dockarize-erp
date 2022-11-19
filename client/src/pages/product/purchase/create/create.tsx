@@ -5,7 +5,7 @@ import "./create.scss";
 
 const Create = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <div>
         <PurchaseForm />
       </div>

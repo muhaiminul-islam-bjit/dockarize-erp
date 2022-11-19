@@ -11,7 +11,7 @@ const Create: React.FC = () => {
   };
 
   return (
-    <Admin>
+    <Admin type="light">
       <div>
         <ProductForm isSuuccess={handleAfterSubmit} />
       </div>

@@ -19,6 +19,7 @@
     "axios": "^0.27.2",
     "joi": "^17.6.0",
     "jspdf": "^2.5.1",
+    "jspdf-invoice-muhaimin": "github:muhaiminulIslamIkhlas/react-pdf",
     "jwt-decode": "^3.1.2",
     "notiflix": "^3.2.5",
     "react": "^18.1.0",

@@ -4,7 +4,7 @@ import List from "../../../components/organism/list/list";
 
 const Brand: React.FC = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <List
         buttontext="Create New Brand"
         deleteUrl="delete-brand"

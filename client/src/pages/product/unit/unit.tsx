@@ -4,7 +4,7 @@ import List from "../../../components/organism/list/list";
 
 const Unit: React.FC = () => {
   return (
-    <Admin>
+    <Admin type="light">
       <List
         buttontext="Create New Unit"
         deleteUrl="delete-unit"

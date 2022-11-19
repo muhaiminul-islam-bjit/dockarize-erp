@@ -11,7 +11,7 @@ const Edit: React.FC = () => {
   };
 
   return (
-    <Admin>
+    <Admin type="light">
       <div>
         <ProductFormEdit isSuuccess={handleAfterSubmit} />
       </div>

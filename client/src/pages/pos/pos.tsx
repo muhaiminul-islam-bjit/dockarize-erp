@@ -19,10 +19,10 @@ import Notiflix, { Report } from "notiflix";
 import Header from "../../components/atom/heading/header";
 import CustomerForm from "../../components/molecules/form/cutomer/customerform";
 import { useNavigate } from "react-router-dom";
-// import jsPDFInvoiceTemplate, {
-//   OutputType,
-//   jsPDF,
-// } from "jspdf-invoice-muhaimin";
+import jsPDFInvoiceTemplate, {
+  OutputType,
+  jsPDF,
+} from "jspdf-invoice-muhaimin";
 import Logo from "../../assets/images/erp.png";
 import Badge from "../../components/atom/badge/badge";
 
@@ -340,7 +340,7 @@ const Pos = () => {
     setStockedOutProduct(response.data.stockedOutProduct);
     if (!response.data.error) {
       console.log("PDF here")
-     /* var props = {
+      var props = {
         outputType: OutputType.DataUrlNewWindow,
         returnJsPDFDocObject: true,
         fileName: "Invoice 2021",
@@ -479,7 +479,7 @@ const Pos = () => {
 
       closeModal();
       setToDefault();
-      const pdfObject: any = jsPDFInvoiceTemplate(props); */
+      const pdfObject: any = jsPDFInvoiceTemplate(props); 
     }
   };
 

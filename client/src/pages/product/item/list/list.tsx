@@ -109,7 +109,7 @@ const List: React.FC<ListProps> = () => {
   }, ["data"]);
 
   return (
-    <Admin>
+    <Admin type="light">
       <div className="p-productList">
         <Header Tag="h2" text="All Product" />
         <Container margin="12">

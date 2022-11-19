@@ -16,8 +16,7 @@
     height: 75%;
   }
 
-  &__menuWrapper{
-    margin-top: 20px;
+  &__menuWrapper {
     padding: 20px;
   }
 
@@ -32,26 +31,43 @@
     font-weight: 700;
     margin-left: 12px;
     opacity: 1;
-    transition: opacity .3s ease-out .2s,visibility .3s ease-out .3s;
+    transition: opacity 0.3s ease-out 0.2s, visibility 0.3s ease-out 0.3s;
     white-space: nowrap;
     display: block;
     color: #434344;
 
-    &:not(:first-child){
-        margin-top: 16px;
+    &:not(:first-child) {
+      margin-top: 16px;
     }
 
     &:hover {
-        color: #0e367d;
+      color: #0e367d;
+    }
+
+    .m-sidebarLight--close & {
+      transition: opacity 0.3s ease-out 0.2s, visibility 0s 0s;
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &__logoWrapper {
+    display: flex;
+    padding: 20px 10px;
+    height: 140px;
+    align-items: center;
+    justify-content: center;
+    .m-sidebarLight--close & {
+      padding: 30px 10px;
     }
   }
 
   &__logo {
-    padding: 20px 10px;
-    border-bottom: 1px solid #ccc;
+    height: 100px;
+    transition: height 0.3s ease-in-out;
     .m-sidebarLight--close & {
-        padding: 30px 10px;
-     }
+      height: 60px;
+    }
   }
 
   &__logoText {
@@ -63,22 +79,27 @@
 
   &__arrow {
     cursor: pointer;
-    display: inline-block;
+    display: flex;
+    padding: 5px;
+    border-radius: 50%;
+    background: aliceblue;
     font-size: 32px;
     position: absolute;
-    right: 8px;
-    top: 15px;
+    right: -30px;
+    top: 50%;
     transition: transform 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transform: translateY(-50%);
 
     .m-sidebarLight--close & {
-      right: 17px;
-      top: 0px;
+      right: -30px;
+      top: 50%;
       transform: rotate(180deg);
     }
   }
 
   &--close {
-    width: 60px;
+    width: 92px;
   }
 
   &--active {

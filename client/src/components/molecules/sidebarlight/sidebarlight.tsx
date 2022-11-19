@@ -4,7 +4,7 @@ import Logo from "../../../assets/images/erp.png";
 import Menu from "../../atom/menu/menu";
 import { NavLink } from "react-router-dom";
 import { FaLayerGroup } from "react-icons/fa";
-import { DashboardOutlined } from "@ant-design/icons";
+import { AccountBookOutlined, AppstoreAddOutlined, BuildOutlined, DashboardOutlined, DollarOutlined, RadarChartOutlined, UsergroupAddOutlined, UserSwitchOutlined } from "@ant-design/icons";
 
 interface SidebarLightProps {
   children?: React.ReactNode;
@@ -24,14 +24,8 @@ const SidebarLight: React.FC<SidebarLightProps> = ({
       }`}
     >
       <div className="m-sidebarLight__upper">
-        <div className="m-sidebarLight__logo">
-          {sideBarActive && (
-            <>
-              <img src={Logo} alt="" height={35} />
-              <span className="m-sidebarLight__logoText">Nikash Online</span>
-            </>
-          )}
-
+        <div className="m-sidebarLight__logoWrapper">
+          <img className="m-sidebarLight__logo" src={Logo} alt="" />
           <span
             className="m-sidebarLight__arrow"
             onClick={handleSidebarIconClick}
@@ -50,15 +44,87 @@ const SidebarLight: React.FC<SidebarLightProps> = ({
           </span>
         </div>
         <div className="m-sidebarLight__menuWrapper">
-          <Menu mainMenu={{icon:<DashboardOutlined />,label:'Dashboard',url:'/dashboard'}} />
-          <Menu mainMenu={{icon:<DashboardOutlined />,label:'Account',url:'/account'}} subMenu={[{label:'All Account', url:'/account'},{label:'Add Amount',url:'/account/add-money'}]} />
+          <Menu
+            mainMenu={{
+              icon: <DashboardOutlined />,
+              label: "Dashboard",
+              url: "/dashboard",
+            }}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <DollarOutlined />,
+              label: "Account",
+            }}
+            subMenu={[
+              { label: "All Account", url: "/account" },
+              { label: "Add Amount", url: "/account/add-money" },
+              { label: "Widthdraw Amount", url: "/account/widthdraw-money" },
+              { label: "History", url: "/account/history" },
+            ]}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <AppstoreAddOutlined />,
+              label: "Item",
+            }}
+            subMenu={[
+              { label: "Unit", url: "/unit" },
+              { label: "Brand", url: "/brand" },
+              { label: "Category", url: "/category" },
+              { label: "Product", url: "/product/item/list" },
+            ]}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <UserSwitchOutlined />,
+              label: "Supplier",
+              url: "/supplier",
+            }}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <UsergroupAddOutlined />,
+              label: "Customer",
+              url: "/customer",
+            }}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <BuildOutlined />,
+              label: "Purchase",
+              url: "/product/item/purchase/list",
+            }}
+            isOpen={sideBarActive}
+          />
+          <Menu
+            mainMenu={{
+              icon: <RadarChartOutlined />,
+              label: "Pos",
+              url: "/pos",
+            }}
+            isOpen={sideBarActive}
+          />
         </div>
       </div>
       <div className="m-sidebarLight__lower">
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">POS</NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">Account Information</NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">Notifications</NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">Logout</NavLink>
+        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
+          POS
+        </NavLink>
+        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
+          Account Information
+        </NavLink>
+        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
+          Notifications
+        </NavLink>
+        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
+          Logout
+        </NavLink>
       </div>
     </div>
   );

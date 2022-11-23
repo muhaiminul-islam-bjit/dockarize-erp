@@ -21,9 +21,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div
-      className={`sidebar ${
-        sideBarActive ? "sidebar--active" : "sidebar--close"
-      }`}
+      className={`sidebar ${sideBarActive ? "sidebar--active" : "sidebar--close"
+        }`}
     >
       <div className="sidebar__logoWrapper">
         {sideBarActive && (

@@ -1,8 +1,9 @@
-version: '3'
+version: '3.8'
 
 networks:
   laravel:
-  
+
+
 services:
   site:
     build:
@@ -54,7 +55,7 @@ services:
       - laravel
 
   client:
-    build: 
+    build:
       context: ./client
       dockerfile: client.dockerfile
     container_name: client
@@ -105,19 +106,6 @@ services:
       - php
     user: laravel
     entrypoint: [ 'composer', '--ignore-platform-reqs' ]
-    networks:
-      - laravel
-
-  npm:
-    image: node:13.7
-    container_name: npm
-    volumes:
-      - ./src:/var/www/html
-    ports:
-      - 3006:3000
-      - 3007:3001
-    working_dir: /var/www/html
-    entrypoint: [ 'npm' ]
     networks:
       - laravel
 

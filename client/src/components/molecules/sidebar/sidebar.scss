@@ -24,12 +24,12 @@
     }
 
     &--active {
-        width: 195px;
+        width: 265px;
         
     }
 
     &__item {
-        height: 48.75px;
+        height: 60.75px;
         padding: 4.87px 9.75px;
         position: relative;
     }
@@ -37,7 +37,7 @@
     &__itemWrapper {
         color: #e7eef8;
         display: flex;
-        font-size: 12px;
+        font-size: 18px;
         font-weight: 500;
         padding: 9.75px;
         transition: all 0.2s ease-in-out;
@@ -48,10 +48,17 @@
             cursor: pointer;
             color: #f9dfdf;
         }
+
+        .active & {
+            background-color: #19191f;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #f9dfdf;
+        }
     }
 
     &__icon {
-        font-size: 19px;
+        font-size: 27px;
         margin-right: 13px;
     }
 

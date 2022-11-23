@@ -19,10 +19,7 @@ import Notiflix, { Report } from "notiflix";
 import Header from "../../components/atom/heading/header";
 import CustomerForm from "../../components/molecules/form/cutomer/customerform";
 import { useNavigate } from "react-router-dom";
-import jsPDFInvoiceTemplate, {
-  OutputType,
-  jsPDF,
-} from "jspdf-invoice-muhaimin";
+import jsPDFInvoiceTemplate, {OutputType} from "../../lib/pdf"
 import Logo from "../../assets/images/erp.png";
 import Badge from "../../components/atom/badge/badge";
 
@@ -331,6 +328,7 @@ const Pos = () => {
       Report.warning("Error!!!", "Please choose a customer", "Okay");
       return;
     }
+    
     const purchaseData = {
       items: cart,
       payment,
@@ -339,9 +337,8 @@ const Pos = () => {
     let response = await sell(purchaseData, "sell");
     setStockedOutProduct(response.data.stockedOutProduct);
     if (!response.data.error) {
-      console.log("PDF here")
       var props = {
-        outputType: OutputType.DataUrlNewWindow,
+        outputType: OutputType.DataUriString,
         returnJsPDFDocObject: true,
         fileName: "Invoice 2021",
         orientationLandscape: false,
@@ -370,11 +367,12 @@ const Pos = () => {
           name: response.data.customer.customer_name,
           address: response.data.customer.customer_address,
           phone: response.data.customer.customer_phone,
+          id: response.data.customer.id,
         },
         invoice: {
           label: "Invoice #: ", //From Server
           num: response.data.invoice_no, //From Server
-          invDate: "Date: " + finalCalculation.date,
+          invDate: finalCalculation.date,
           headerBorder: false,
           tableBodyBorder: false,
           header: [
@@ -429,10 +427,6 @@ const Pos = () => {
           }),
           additionalRows: [
             {
-              col1: "Total Amount:",
-              col2: finalCalculation.total.toString(),
-            },
-            {
               col1: "Sub Total:",
               col2: finalCalculation.subTotal.toString(),
             },
@@ -443,6 +437,10 @@ const Pos = () => {
             {
               col1: "Other Cost:",
               col2: finalCalculation.otherCost.toString(),
+            },
+            {
+              col1: "Total Amount:",
+              col2: finalCalculation.total.toString(),
             },
             {
               col1: "Previous Due:",

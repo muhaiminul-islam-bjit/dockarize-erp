@@ -45,7 +45,7 @@ const Menu: React.FC<MenuProps> = ({ mainMenu, subMenu, isOpen }) => {
           </div>
         </div>
       ) : (
-        <NavLink to={mainMenu.url} className="a-menu__item">
+        <NavLink to={mainMenu.url??''} className="a-menu__item">
           <span className="a-menu__icon">{mainMenu.icon}</span>
           <span className="a-menu__label">{mainMenu.label}</span>
         </NavLink>

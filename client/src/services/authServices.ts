@@ -20,7 +20,6 @@ export async function login(username: string, password: string) {
       Authorization: `Bearer ${data.access_token}`,
     };
   } catch (error: any) {
-    console.log(error)
     let statusText = error.response.data.message;
     Notiflix.Report.failure("Error!!!", statusText, "Okay");
   }

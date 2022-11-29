@@ -1,4 +1,5 @@
-import { Col, Row } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Col, Drawer, Row } from "antd";
 import Joi from "joi";
 import React, { useEffect, useState } from "react";
 import { handleChangeCommon, validate } from "../../../../lib/form";
@@ -7,6 +8,8 @@ import ButtonCustom from "../../../atom/button/button";
 import Container from "../../../atom/container/container";
 import Header from "../../../atom/heading/header";
 import Input from "../../../atom/input/input";
+import ColorForm from "../color/color";
+import SizeForm from "../size/size";
 import "./productForm.scss";
 
 interface ProductForm {
@@ -15,9 +18,12 @@ interface ProductForm {
 }
 
 const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
+  type draweType = "colorForm" | "sizeForm" | "";
   const [errors, setErrors] = useState<any>({});
   const [brand, setBrand] = useState<any>([]);
   const [unit, setUnit] = useState<any>([]);
+  const [open, setOpen] = useState(false);
+  const [drawerContent, setDrawerContent] = useState<draweType>("");
   const [category, setCategory] = useState<any>([]);
   const createUrl = "store-product";
   const formObj = {
@@ -79,9 +85,20 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
     }
   };
 
+
+
+  const showDrawer = (drawerContentType: draweType) => {
+    setDrawerContent(drawerContentType)
+    setOpen(true);
+
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     fetchSelectData();
-    // setData(formObj);
   }, ["brand"]);
 
   const handleChange = (e: any) => {
@@ -91,153 +108,186 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
     setData(hadleChangeData.account);
   };
 
+  const handleSizeFormSuccess = () => {
+    setOpen(false);
+  }
+
   return (
-    <div className="o-form">
-      <Header Tag="h2" text="Product Create" />
-      <form onSubmit={handleSubmit}>
-        <Container margin="12">
-          <Row gutter={[32, 16]}>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Product Name"
-                value={data.product_name}
-                onChange={handleChange}
-                name="product_name"
-                type="text"
-                error={errors.product_name}
-                placeHolder="Product Name"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Brand"
-                value={data.brand_id}
-                onChange={handleChange}
-                name="brand_id"
-                type="select"
-                error={errors.brand_id}
-                options={brand}
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Unit"
-                value={data.unit_id}
-                onChange={handleChange}
-                name="unit_id"
-                type="select"
-                error={errors.unit_id}
-                options={unit}
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Category"
-                value={data.category_id}
-                onChange={handleChange}
-                name="category_id"
-                type="select"
-                error={errors.category_id}
-                options={category}
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Size"
-                value={data.size}
-                onChange={handleChange}
-                name="size"
-                type="text"
-                error={errors.size}
-                placeHolder="Product Size"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Color"
-                value={data.color}
-                onChange={handleChange}
-                name="color"
-                type="text"
-                error={errors.color}
-                placeHolder="Product Color"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Purchase Price"
-                value={data.purchase_price}
-                onChange={handleChange}
-                name="purchase_price"
-                type="number"
-                error={errors.purchase_price}
-                placeHolder="Purchase Price"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Selling Price"
-                value={data.selling_price}
-                onChange={handleChange}
-                name="selling_price"
-                type="number"
-                error={errors.selling_price}
-                placeHolder="Selling Price"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Initial Stock"
-                value={data.initial_stock}
-                onChange={handleChange}
-                name="initial_stock"
-                type="number"
-                error={errors.initial_stock}
-                placeHolder="Initial Stock"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Warrenty"
-                value={data.warrenty}
-                onChange={handleChange}
-                name="warrenty"
-                type="text"
-                error={errors.warrenty}
-                placeHolder="Warrenty"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Guarantee"
-                value={data.guarantee}
-                onChange={handleChange}
-                name="guarantee"
-                type="text"
-                error={errors.guarantee}
-                placeHolder="Guarantee"
-              />
-            </Col>
-            <Col className="gutter-row" span={6}>
-              <Input
-                label="Description"
-                value={data.description}
-                onChange={handleChange}
-                name="description"
-                type="text"
-                error={errors.description}
-                placeHolder="Description"
-              />
-            </Col>
-          </Row>
-        </Container>
-        <Container margin="24">
+    <>
+      <div className="o-form">
+        <Header Tag="h2" text="Product Create" />
+        <form onSubmit={handleSubmit}>
+          <Container margin="12">
+            <Row gutter={[32, 16]}>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Product Name"
+                  value={data.product_name}
+                  onChange={handleChange}
+                  name="product_name"
+                  type="text"
+                  error={errors.product_name}
+                  placeHolder="Product Name"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Brand"
+                  value={data.brand_id}
+                  onChange={handleChange}
+                  name="brand_id"
+                  type="select"
+                  error={errors.brand_id}
+                  options={brand}
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Unit"
+                  value={data.unit_id}
+                  onChange={handleChange}
+                  name="unit_id"
+                  type="select"
+                  error={errors.unit_id}
+                  options={unit}
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Category"
+                  value={data.category_id}
+                  onChange={handleChange}
+                  name="category_id"
+                  type="select"
+                  error={errors.category_id}
+                  options={category}
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Row>
+                  <Col span={20}>
+                    <Input
+                      label="Size"
+                      value={data.size}
+                      onChange={handleChange}
+                      name="size"
+                      type="text"
+                      error={errors.size}
+                      placeHolder="Product Size"
+                    /></Col>
+                  <Col span={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Button
+                      style={{ alignSelf: "center" }}
+                      type="dashed"
+                      icon={<PlusOutlined />}
+                      shape="circle"
+                      onClick={()=> { showDrawer('sizeForm')}}
+                    /></Col>
+                </Row>
+
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Row>
+                  <Col span={20}>
+                    <Input
+                      label="Color"
+                      value={data.color}
+                      onChange={handleChange}
+                      name="color"
+                      type="text"
+                      error={errors.color}
+                      placeHolder="Product Color"
+                    />
+                  </Col>
+                  <Col span={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Button
+                      style={{ alignSelf: "center" }}
+                      type="dashed"
+                      icon={<PlusOutlined />}
+                      shape="circle"
+                      onClick={()=> { showDrawer('colorForm')}}
+                    /></Col>
+                </Row>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Purchase Price"
+                  value={data.purchase_price}
+                  onChange={handleChange}
+                  name="purchase_price"
+                  type="number"
+                  error={errors.purchase_price}
+                  placeHolder="Purchase Price"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Selling Price"
+                  value={data.selling_price}
+                  onChange={handleChange}
+                  name="selling_price"
+                  type="number"
+                  error={errors.selling_price}
+                  placeHolder="Selling Price"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Initial Stock"
+                  value={data.initial_stock}
+                  onChange={handleChange}
+                  name="initial_stock"
+                  type="number"
+                  error={errors.initial_stock}
+                  placeHolder="Initial Stock"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Warrenty"
+                  value={data.warrenty}
+                  onChange={handleChange}
+                  name="warrenty"
+                  type="text"
+                  error={errors.warrenty}
+                  placeHolder="Warrenty"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Guarantee"
+                  value={data.guarantee}
+                  onChange={handleChange}
+                  name="guarantee"
+                  type="text"
+                  error={errors.guarantee}
+                  placeHolder="Guarantee"
+                />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Input
+                  label="Description"
+                  value={data.description}
+                  onChange={handleChange}
+                  name="description"
+                  type="text"
+                  error={errors.description}
+                  placeHolder="Description"
+                />
+              </Col>
+            </Row>
+          </Container>
+          <Container margin="24">
             <div className="o-form__button">
               <ButtonCustom label="Create" disabled={false} />
             </div>
-        </Container>
-      </form>
-    </div>
+          </Container>
+        </form>
+      </div>
+      <Drawer title="Add Item" placement="right" onClose={onClose} open={open}>
+        {drawerContent === 'sizeForm' ? <SizeForm isSuuccess={handleSizeFormSuccess} /> : <ColorForm isSuuccess={handleSizeFormSuccess} />}
+      </Drawer>
+    </>
   );
 };
 

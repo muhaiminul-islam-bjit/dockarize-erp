@@ -30,7 +30,6 @@ const Add: React.FC = () => {
     e.preventDefault();
     const errors = validate(data, rules);
     setErrors(errors ? errors : {});
-    console.log(errors);
     if (errors) {
       return;
     }
@@ -54,7 +53,6 @@ const Add: React.FC = () => {
     };
     fetchAccount();
   }, ["accounts"]);
-  console.log(data);
   return (
     <Admin type="light">
       <Header Tag="h2" text="Add Amount"></Header>

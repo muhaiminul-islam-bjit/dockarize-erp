@@ -15,12 +15,10 @@ interface DataType {
 const Details: React.FC = () => {
   let params = useParams();
   const listUrl = "get-purchase/" + params.detailsId;
-  console.log(listUrl);
   const [data, setData] = useState<any>([]);
   const fetchData = async () => {
     let fetchedData: any;
     fetchedData = await get(listUrl);
-    console.log(fetchedData.data);
     setData(fetchedData.data);
   };
   useEffect(() => {

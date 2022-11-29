@@ -42,7 +42,7 @@ const App: React.FC = () => {
           }
         ></Route>
         <Route path="/unit" element={<Unit />}></Route>
-        <Route path="/account" element={<Account />}></Route>
+        <Route path="/accounts" element={<Account />}></Route>
         <Route path="/account/add-money" element={<Add />}></Route>
         <Route path="/account/widthdraw-money" element={<Widthdraw />}></Route>
         <Route path="/account/history" element={<Transection />}></Route>

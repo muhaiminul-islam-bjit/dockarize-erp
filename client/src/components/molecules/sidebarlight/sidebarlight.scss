@@ -18,6 +18,8 @@
 
   &__menuWrapper {
     padding: 20px;
+    height: 75%;
+    overflow: overlay;
   }
 
   &__lower {
@@ -90,6 +92,7 @@
     transition: transform 0.3s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transform: translateY(-50%);
+    z-index: 1;
 
     .m-sidebarLight--close & {
       right: -30px;

@@ -47,7 +47,6 @@ const LoginForm = () => {
     const errors = validate(data, rules);
     setErrors(errors ? errors : {});
     if (errors) {
-      console.log(errors);
       return;
     }
     Loading.hourglass()

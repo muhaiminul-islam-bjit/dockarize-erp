@@ -58,7 +58,7 @@ const SidebarLight: React.FC<SidebarLightProps> = ({
               label: "Account",
             }}
             subMenu={[
-              { label: "All Account", url: "/account" },
+              { label: "All Account", url: "/accounts" },
               { label: "Add Amount", url: "/account/add-money" },
               { label: "Widthdraw Amount", url: "/account/widthdraw-money" },
               { label: "History", url: "/account/history" },

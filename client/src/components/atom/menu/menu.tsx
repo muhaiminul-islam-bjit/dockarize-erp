@@ -15,9 +15,10 @@ const Menu: React.FC<MenuProps> = ({ mainMenu, subMenu, isOpen }) => {
     setIsActive(!isActive);
   };
   const subMenuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (isOpen && subMenuRef.current) {
-      setListHeight(subMenuRef.current.offsetHeight);
+    if(menuRef.current?.querySelector('.active')){
+      setIsActive(true);
     }
   }, [isOpen]);
   return (
@@ -28,7 +29,7 @@ const Menu: React.FC<MenuProps> = ({ mainMenu, subMenu, isOpen }) => {
             isActive && isOpen && "a-menu__item--active"
           }`}
           onClick={handleClick}
-          
+          ref={menuRef}
           
         >
           <span className="a-menu__icon">{mainMenu.icon}</span>

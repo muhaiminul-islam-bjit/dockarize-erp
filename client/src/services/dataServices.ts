@@ -33,7 +33,6 @@ export async function sell(formData: any, url: string) {
     }
     return data;
   } catch (error: any) {
-    console.log(error);
     let status = error.response.status;
     if (status === 422) {
       Notiflix.Report.failure("Error!!!", "Invalid Input", "Okay");
@@ -78,7 +77,6 @@ export async function deleteData(url: string, id: any) {
     Loading.remove();
     Notify.success(data.message);
   } catch (error) {
-    console.log(error);
     let message = "Something went wrong, please try again";
     Loading.remove();
     Notiflix.Report.failure("Error!!!", message, "Okay");

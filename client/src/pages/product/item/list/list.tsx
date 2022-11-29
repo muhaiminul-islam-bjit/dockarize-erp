@@ -96,7 +96,6 @@ const List: React.FC<ListProps> = () => {
   ];
 
   const handleSearch = (e: any) => {
-    console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 

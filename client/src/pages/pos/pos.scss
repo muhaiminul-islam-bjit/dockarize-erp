@@ -2,11 +2,11 @@
 
 .p-pos {
     padding: 20px;
-    // max-width: 1366px;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 20px;
+    max-width: 1300px;
 
     &__productCard {
         padding: 10px;
@@ -18,6 +18,7 @@
         cursor: pointer;
         border-radius: 8px;
         transition: all 0.3s;
+
         &:hover {
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         }
@@ -26,6 +27,10 @@
     &__name {
         font-size: 14px;
         font-weight: bold;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__cart {
@@ -51,6 +56,7 @@
         background-color: #f6fdfe;
         border-bottom: 1px dashed #ced4da;
         padding: 8px 0;
+
         &--title {
             background: #fff;
             font-weight: bold;
@@ -60,12 +66,13 @@
 
     &__element {
         width: 16%;
+
         &--product {
             width: 25%;
         }
     }
 
-    &__remove{
+    &__remove {
         width: 5%;
     }
 
@@ -116,14 +123,14 @@
         }
     }
 
-    &__actionContainer{
+    &__actionContainer {
         display: grid;
         grid-template-columns: 1fr 2fr;
         column-gap: 20px;
 
     }
 
-    &__productFilter{
+    &__productFilter {
         margin-right: 20px;
     }
 }

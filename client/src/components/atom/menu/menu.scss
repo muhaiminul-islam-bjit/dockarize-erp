@@ -46,12 +46,15 @@
     &.active {
       color: #0e367d;
     }
+    &:last-child {
+      margin-bottom: 10px;
+    }
   }
 
   &__subMenuLabel {
     margin-left: 10px;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   &__icon {

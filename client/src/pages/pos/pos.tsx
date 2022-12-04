@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Select, Tooltip } from 'antd';
 import "./pos.scss";
 import PosTemplate from "../../components/templates/pos/pos";
 import {
@@ -19,11 +20,12 @@ import Notiflix, { Report } from "notiflix";
 import Header from "../../components/atom/heading/header";
 import CustomerForm from "../../components/molecules/form/cutomer/customerform";
 import { useNavigate } from "react-router-dom";
-import jsPDFInvoiceTemplate, {OutputType} from "../../lib/pdf"
+import jsPDFInvoiceTemplate, { OutputType } from "../../lib/pdf"
 import Logo from "../../assets/images/erp.png";
 import Badge from "../../components/atom/badge/badge";
+import { Input as AntInput } from 'antd';
 
-const Pos = () => {
+const Pos: React.FC = () => {
   const date = new Date();
   const navigate = useNavigate();
   const [product, setProduct] = useState<any>([]);
@@ -328,7 +330,7 @@ const Pos = () => {
       Report.warning("Error!!!", "Please choose a customer", "Okay");
       return;
     }
-    
+
     const purchaseData = {
       items: cart,
       payment,
@@ -477,7 +479,7 @@ const Pos = () => {
 
       closeModal();
       setToDefault();
-      const pdfObject: any = jsPDFInvoiceTemplate(props); 
+      const pdfObject: any = jsPDFInvoiceTemplate(props);
     }
   };
 
@@ -501,21 +503,6 @@ const Pos = () => {
     </div>
   );
 
-  const handleFilterProduct = (categoryName: any) => {
-    let filteredData;
-    setSerachName("");
-    if (!categoryName) {
-      filteredData = product;
-    } else {
-      filteredData = product.filter((item: any) => {
-        if (item.category == categoryName) {
-          return true;
-        }
-      });
-    }
-    setFilteredProduct(filteredData);
-  };
-
   const handleProductSearch = (e: any) => {
     const value = e.target.value;
     setSerachName(value);
@@ -528,6 +515,22 @@ const Pos = () => {
       });
       setFilteredProduct(matchNameProduct);
     }
+  };
+  const handleFilterProduct = (value: string | string[], completeData: any[]) => {
+    let filteredData;
+    setSerachName("");
+    if (!completeData.length) {
+      filteredData = product;
+    } else {
+      completeData.map((completeItem) => {
+        filteredData = product.filter((item: any) => {
+          if (item.category == completeItem.label) {
+            return true;
+          }
+        });
+      })
+    }
+    setFilteredProduct(filteredData);
   };
 
   useEffect(() => {
@@ -609,7 +612,7 @@ const Pos = () => {
                     />
                   </div>
                   <div className="p-pos__element">{item.total}
-                  <DeleteOutlined
+                    <DeleteOutlined
                       style={{ color: "red", cursor: "pointer", marginLeft: "5px" }}
                       onClick={() => {
                         removeCart(i);
@@ -708,8 +711,8 @@ const Pos = () => {
               modalType === "customer"
                 ? "Add Customer"
                 : modalType === "product"
-                ? "Add Item"
-                : "Payment"
+                  ? "Add Item"
+                  : "Payment"
             }
           >
             {modalType === "product" && (
@@ -818,54 +821,26 @@ const Pos = () => {
           </ModalComponent>
 
           <Card style={{ height: "95vh", borderRadius: "8px" }}>
-            <div className="p-pos__actionContainer">
-              <ButtonCustom
-                label="Dashboard"
-                onClick={gotoDashboard}
-                disabled={false}
-                type="primary"
-              />
-              <Input
-                label={false}
-                name="search_product"
-                onChange={handleProductSearch}
-                type="text"
-                value={serachName}
-                placeHolder="Search Product"
-              />
-            </div>
+            <Row style={{ marginBottom: '28px' }}>
+              <Col span={5}>
+                <Button type="dashed" danger onClick={gotoDashboard}>Dashboard</Button>
+              </Col>
+              <Col span={7}>
+                <AntInput placeholder="Search Product" onChange={handleProductSearch} value={serachName} />
+              </Col>
+              <Col span={12}><Select
+                mode="multiple"
+                size="middle"
+                placeholder="Please select category"
+                defaultValue={['All Category']}
+                onChange={handleFilterProduct}
+                style={{ width: '100%', marginLeft: '10px' }}
+                options={category}
+              /></Col>
+            </Row>
             <Container margin="12">
               <Row>
-                <Col span={4}>
-                  <div className="p-pos__productFilter">
-                    <Button
-                      type="dashed"
-                      style={{ marginBottom: "15px" }}
-                      block
-                      onClick={() => {
-                        handleFilterProduct(0);
-                      }}
-                    >
-                      All Product
-                    </Button>
-                    {category.map((item: any, i: any) => {
-                      return (
-                        <Button
-                          key={i}
-                          type="dashed"
-                          style={{ marginBottom: "15px" }}
-                          block
-                          onClick={() => {
-                            handleFilterProduct(item.label);
-                          }}
-                        >
-                          {item.label}
-                        </Button>
-                      );
-                    })}
-                  </div>
-                </Col>
-                <Col span={20}>
+                <Col span={24}>
                   <Row gutter={[16, 16]}>
                     {filteredProduct.map((item: any, i: any) => {
                       return (
@@ -877,12 +852,15 @@ const Pos = () => {
                             }}
                           >
                             <Container margin="8">
-                              <p className="p-pos__name">{item.product_name}</p>
+                              <Tooltip title={item.product_name}>
+                                <p className="p-pos__name">{item.product_name}</p>
+                              </Tooltip>
+
                             </Container>
                             <Container margin="4">
+
                               <p className="p-pos__price">{item.brand}</p>
                             </Container>
-                            {}
                             <Container margin="4">
                               <p className="p-pos__size">
                                 <Badge label={item.size ? item.size : "none"} />
@@ -894,7 +872,7 @@ const Pos = () => {
                             </Container>
                             <Container margin="4">
                               <p className="p-pos__price">
-                                {item.selling_price} Taka
+                                {item.selling_price} Tk
                               </p>
                             </Container>
                           </div>

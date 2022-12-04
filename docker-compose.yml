@@ -32,11 +32,13 @@ services:
     tty: true
     ports:
       - 3306:3306
+    env_file:
+      - ./src/.env
     environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
@@ -62,8 +64,8 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-    # environment:
-    #   - WDS_SOCKET_PORT=0
+    environment:
+      - WDS_SOCKET_PORT=0
     ports:
       - 3000:3000
     networks:

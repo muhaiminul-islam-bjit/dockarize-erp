@@ -9,7 +9,7 @@ import Header from "../../../atom/heading/header";
 import Input from "../../../atom/input/input";
 import ModalComponent from "../../../../components/organism/modalcomponent/modalcomponent";
 import "./purchaseForm.scss";
-import Notiflix from "notiflix";
+import Notiflix, { Report } from "notiflix";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -103,6 +103,7 @@ const PurchaseForm: React.FC<PurchaseFormProps> = ({ isSuuccess, back }) => {
     });
     console.log(fullData);
     let response = await store(fullData, createUrl);
+    console.log(response)
     if (response) {
       setData(formObj);
       nvigate("/product/item/purchase/list");
@@ -114,8 +115,22 @@ const PurchaseForm: React.FC<PurchaseFormProps> = ({ isSuuccess, back }) => {
   }, ["brand"]);
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
+    console.log(e.target.name);
+    console.log(data);
+    if (e.target.name == 'payment') {
+      if (e.target.value > GrandTotal) {
+        Report.warning(
+          'Warning',
+          'Payment can not greater than grand total',
+          'Okay',
+        );
+
+        return;
+      }
+    }
+
     const hadleChangeData = handleChangeCommon(e, data, errors, rules);
+    // console.log(hadleChangeData.account);
     setErrors(hadleChangeData.error);
     setData(hadleChangeData.account);
   };

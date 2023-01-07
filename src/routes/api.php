@@ -118,9 +118,34 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/make-purchase', 'API\PurchaseController@makePurchase');
     Route::get('/get-all-purchase', 'API\PurchaseController@index');
     Route::get('/get-purchase/{id}', 'API\PurchaseController@getById');
+    Route::get('/get-all-invoice-due/{supplierId}', 'API\PurchaseController@getAllInvoiceWithDue');
 
     /**
-     * Purchase
+     * Pos
      */
     Route::post('/sell', 'API\PosController@sell');
+
+    /**
+     * Product Attributes
+     */
+    Route::post('/store/color', 'API\ProductAttributeController@storeColor');
+    Route::post('/store/size', 'API\ProductAttributeController@storeSize');
+    Route::get('/get-all/color', 'API\ProductAttributeController@getAllColor');
+    Route::get('/get-all/size', 'API\ProductAttributeController@getAllSize');
+
+    /**
+     * Sell
+     */
+    Route::get('/get-all-sell', 'API\SellController@index');
+    Route::get('/get-sell-item/{sellId}', 'API\SellController@getSellItems');
+
+    /**
+     * Customer Payments
+     */
+    Route::post('/customer-payment', 'API\PaymentController@customerPayment');
+    Route::post('/supplier-payment', 'API\PaymentController@supplierPayment');
+    Route::get('/get-sell-item/{sellId}', 'API\SellController@getSellItems');
+    Route::get('/get-customer-due/{sellId}', 'API\SellController@getSellItems');
+    Route::get('/get-customer-payments', 'API\PaymentController@getCustomerPayments');
+    Route::get('/get-supplier-payments', 'API\PaymentController@getSupplierPayments');
 });

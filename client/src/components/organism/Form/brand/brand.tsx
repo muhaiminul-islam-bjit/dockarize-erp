@@ -18,7 +18,7 @@ const Brand: React.FC<BrandProps> = ({ isSuuccess, formData, buttonText }) => {
 
   const [errors, setErrors] = useState<any>({});
   const rules: any = {
-    brand_name: Joi.string().min(3).max(30).required().label("Unit"),
+    brand_name: Joi.string().min(2).max(30).required().label("Unit"),
     description: Joi.string().min(3).max(100).required().label("Unit"),
     id: Joi.optional(),
     created_at: Joi.optional(),

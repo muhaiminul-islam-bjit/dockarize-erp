@@ -24,6 +24,13 @@
         }
     }
 
+    &__itemCard {
+        height: 730px;
+        overflow-y: overlay;
+        overflow-x: hidden;
+        padding: 10px;
+    }
+
     &__name {
         font-size: 14px;
         font-weight: bold;
@@ -49,6 +56,11 @@
         font-weight: bold;
     }
 
+    &__rowWrapper {
+        height: 400px;
+        overflow-y: overlay;
+    }
+
     &__row {
         display: flex;
         flex-shrink: 0;
@@ -68,7 +80,7 @@
         width: 16%;
 
         &--product {
-            width: 25%;
+            width: 32%;
         }
     }
 
@@ -81,13 +93,20 @@
     }
 
     &__calculation {
+        padding-top: 20px;
         margin-top: 20px;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        border-top: 1px dashed gainsboro;
 
         &__label {
             font-weight: bold;
             margin-right: 8px;
+            font-size: 18px;
+        }
+
+        &__value{
+            font-size: 18px;
         }
 
         input {
@@ -132,5 +151,12 @@
 
     &__productFilter {
         margin-right: 20px;
+    }
+
+    &__totalWrapper{
+        margin-top: 10px;
+        font-size: 42px;
+        text-align: center;
+        color: slateblue;
     }
 }

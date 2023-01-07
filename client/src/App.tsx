@@ -19,6 +19,13 @@ import Pos from "./pages/pos/pos";
 import Add from "./pages/account/add/add";
 import Widthdraw from "./pages/account/widthdraw/widthdraw";
 import Transection from "./pages/account/transection/transection";
+import Sell from "./pages/sell/sell";
+import SellDtails from "./pages/sell/details/details";
+import Index from "./pages";
+import CustomerPayment from "./pages/payment/customerPayment/customerPayment";
+import CustomerPaymentList from "./pages/payment/customerPayment/list";
+import SupplierPayment from "./pages/payment/supplierPayment/supplierPayment";
+import SupplierPaymentList from "./pages/payment/supplierPayment/list";
 
 const App: React.FC = () => {
   return (
@@ -36,9 +43,7 @@ const App: React.FC = () => {
         <Route
           path="/*"
           element={
-            <Dashboard>
-              <h1>Hello World</h1>
-            </Dashboard>
+            <Index />
           }
         ></Route>
         <Route path="/unit" element={<Unit />}></Route>
@@ -66,6 +71,12 @@ const App: React.FC = () => {
           element={<PurchaseDetails />}
         ></Route>
         <Route path="/pos" element={<Pos />}></Route>
+        <Route path="/all-sell" element={<Sell />}></Route>
+        <Route path="/sell-items/:invoiceId/:invoiceNumber" element={<SellDtails />}></Route>
+        <Route path="/customer-payment" element={<CustomerPayment />}></Route>
+        <Route path="/suppliers-payment" element={<SupplierPayment />}></Route>
+        <Route path="/customers-payment-list" element={<CustomerPaymentList />}></Route>
+        <Route path="/suppliers-payment-list" element={<SupplierPaymentList />}></Route>
       </Routes>
     </div>
   );

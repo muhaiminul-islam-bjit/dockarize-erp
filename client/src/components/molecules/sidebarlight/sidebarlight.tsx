@@ -116,14 +116,14 @@ const SidebarLight: React.FC<SidebarLightProps> = ({
         <NavLink className="m-sidebarLight__lowerItem" to="/pos">
           POS
         </NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
-          Account Information
+        <NavLink className="m-sidebarLight__lowerItem" to="/all-sell">
+          All Sell
         </NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
-          Notifications
+        <NavLink className="m-sidebarLight__lowerItem" to="/customers-payment-list">
+          Customer Payment
         </NavLink>
-        <NavLink className="m-sidebarLight__lowerItem" to="/pos">
-          Logout
+        <NavLink className="m-sidebarLight__lowerItem" to="/suppliers-payment-list">
+          Supplier Payment
         </NavLink>
       </div>
     </div>

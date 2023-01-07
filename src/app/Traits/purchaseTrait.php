@@ -6,6 +6,8 @@ use App\Account;
 use App\ProductStock;
 use App\Purchase;
 use App\PurchaseDetail;
+use App\Supplier;
+use App\SupplierPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -64,6 +66,18 @@ trait PurchaseTrait
 
             $account->current_balance -= $request->payment;
             $account->save();
+
+            $supplier = Supplier::where('id', $purchase->supplier_id)->first();
+            $supplierPayment = new SupplierPayment();
+            $supplierPayment->purchase_id = $purchase->id;
+            $supplierPayment->invoice_no = $purchase->invoice_no;
+            $supplierPayment->supplier_id = $purchase->supplier_id;
+            $supplierPayment->supplier_name = $supplier->supplier_name;
+            $supplierPayment->supplier_phone = $supplier->supplier_phone;
+            $supplierPayment->amount = $purchase->payment;
+            $supplierPayment->date = $purchase->date;
+            $supplierPayment->account = $account->account_name;
+            $supplierPayment->save();
 
             DB::commit();
 

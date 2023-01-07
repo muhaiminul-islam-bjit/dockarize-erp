@@ -33,7 +33,13 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         try {
-            $customer = Customer::orderBy('id', 'desc')->paginate($request->get('perPage'), ['customer_name', 'customer_phone', 'customer_address', 'id'], 'page');
+            if ($request->get('search')) {
+                $customer = Customer::orderBy('id', 'desc')
+                    ->paginate($request->get('perPage'), ['customer_name', 'customer_phone', 'customer_address', 'id'], 'page');
+            } else {
+                $customer = Customer::orderBy('id', 'desc')->paginate($request->get('perPage'), ['customer_name', 'customer_phone', 'customer_address', 'id'], 'page');
+            }
+
             return $this->success($customer);
         } catch (\Throwable $th) {
             return $this->failure($th->getMessage());

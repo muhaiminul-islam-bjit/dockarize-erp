@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Account;
 use App\Customer;
+use App\CustomerPayment;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductStock;
@@ -32,7 +33,7 @@ class PosController extends Controller
             $sell->discount = $request->finalCalculation['discount'];
             $sell->other_cost = $request->finalCalculation['otherCost'];
             $sell->subtotal = $request->finalCalculation['subTotal'];
-            $sell->due = $request->payment['due'];
+            $sell->due = $request->finalCalculation['total'] - $request->payment['payment'];
             $sell->payment = $request->payment['payment'];
             $sell->qty = $request->finalCalculation['items'];
             $sell->total = $request->finalCalculation['total'];
@@ -108,6 +109,16 @@ class PosController extends Controller
                 $account->current_balance += $request->payment['payment'];
                 $account->save();
             }
+
+            $customerPayment = new CustomerPayment();
+            $customerPayment->sell_id =  $sell->id;
+            $customerPayment->customer_id = $sell->customer_id;
+            $customerPayment->customer_name = $sell->customer_name;
+            $customerPayment->customer_phone = $sell->customer_phone;
+            $customerPayment->amount = $sell->payment;
+            $customerPayment->account = $account->account_name;
+            $customerPayment->date = $sell->date;
+            $customerPayment->save();
 
             DB::commit();
             return response()->json([

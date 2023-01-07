@@ -28,6 +28,15 @@ class Purchase extends Model
         ];
     }
 
+    public function allInvoiceWithDue()
+    {
+        return [
+            'value' => $this->id,
+            'label' => $this->invoice_no,
+            'due' => $this->due,
+        ];
+    }
+
     public function formatDetails()
     {
         $items = [];

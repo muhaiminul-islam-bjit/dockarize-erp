@@ -13,7 +13,8 @@ export async function store(formData: any, url: string) {
     Notify.success(data.message);
     return success;
   } catch (error: any) {
-    const message = error.response.data.message;
+    console.log(error.response)
+    const message = error.response.data.error;
     Notiflix.Report.failure("Error!!!", message, "Okay");
     Loading.remove();
     return fail;

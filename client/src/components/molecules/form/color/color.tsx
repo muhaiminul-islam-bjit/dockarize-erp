@@ -15,19 +15,16 @@ const ColorForm: React.FC<ColorFormProps> = ({ isSuuccess }) => {
         color: ''
     });
     const [errors, setErrors] = useState<any>({});
-    const createUrl = "store-customer";
+    const createUrl = "store/color";
     const formObj = {
-        size: "",
+        color: "",
     };
     const rules: any = {
         color: Joi.string()
             .min(3)
             .max(30)
             .required()
-            .label("Customer Name"),
-        customer_address: Joi.string().min(3).max(100).required().label("Address"),
-        customer_phone: Joi.number().min(3).required().label("Phone"),
-        id: Joi.optional(),
+            .label("Color")
     };
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -58,7 +55,7 @@ const ColorForm: React.FC<ColorFormProps> = ({ isSuuccess }) => {
                         label="Color"
                         value={data.color}
                         onChange={handleChange}
-                        name="size"
+                        name="color"
                         type="text"
                         error={errors.color}
                         placeHolder="Color"

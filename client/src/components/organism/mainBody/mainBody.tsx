@@ -5,18 +5,18 @@ import { FcBiotech } from "react-icons/fc";
 import { FcAdvertising } from "react-icons/fc";
 import { FcAddImage } from "react-icons/fc";
 import { FcAddDatabase } from "react-icons/fc";
-import { FcAssistant } from "react-icons/fc";
 import { MdLogout } from "react-icons/md";
 import authServices from "../../../services/authServices";
 import { useNavigate } from "react-router-dom";
 
 interface MainBodyProps {
   children: React.ReactNode;
+  noCard?: boolean;
 }
 
-const MainBody: React.FC<MainBodyProps> = ({ children }) => {
+const MainBody: React.FC<MainBodyProps> = ({ children, noCard }) => {
   const navigate = useNavigate();
-  const handleLogout = () =>{
+  const handleLogout = () => {
     authServices.logout();
     navigate('login')
   }
@@ -89,7 +89,7 @@ const MainBody: React.FC<MainBodyProps> = ({ children }) => {
           </span>
         </div>
       </div>
-      <div className="card">{children}</div>
+      <div className={noCard ? '' : 'card'}>{children}</div>
     </div>
   );
 };

@@ -25,6 +25,8 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
   const [open, setOpen] = useState(false);
   const [drawerContent, setDrawerContent] = useState<draweType>("");
   const [category, setCategory] = useState<any>([]);
+  const [size, setSize] = useState<any>([]);
+  const [color, setColor] = useState<any>([]);
   const createUrl = "store-product";
   const formObj = {
     product_name: "",
@@ -64,9 +66,13 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
     let allBrand = await get("get-all-brand-select", false);
     let allUnit = await get("get-all-unit-select", false);
     let allCategory = await get("get-all-category-select", false);
+    let allSizes = await get("get-all/size",false);
+    let allColor = await get("get-all/color",false);
     setBrand(allBrand.data);
     setUnit(allUnit.data);
     setCategory(allCategory.data);
+    setSize(allSizes.data);
+    setColor(allColor.data);
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -108,7 +114,15 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
     setData(hadleChangeData.account);
   };
 
-  const handleSizeFormSuccess = () => {
+  const handleSizeFormSuccess = async () => {
+    let allSizes = await get("get-all/size",false);
+    setSize(allSizes.data);
+    setOpen(false);
+  }
+
+  const handleColorFormSuccess = async () => {
+    let allColor = await get("get-all/color",false);
+    setColor(allColor.data);
     setOpen(false);
   }
 
@@ -171,8 +185,10 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
                       value={data.size}
                       onChange={handleChange}
                       name="size"
-                      type="text"
+                      type="select"
+                      options={size}
                       error={errors.size}
+                      defaultSelect={true}
                       placeHolder="Product Size"
                     /></Col>
                   <Col span={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -194,8 +210,10 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
                       value={data.color}
                       onChange={handleChange}
                       name="color"
-                      type="text"
+                      type="select"
+                      options={color}
                       error={errors.color}
+                      defaultSelect={true}
                       placeHolder="Product Color"
                     />
                   </Col>
@@ -284,8 +302,8 @@ const ProductForm: React.FC<ProductForm> = ({ isSuuccess, back }) => {
           </Container>
         </form>
       </div>
-      <Drawer title="Add Item" placement="right" onClose={onClose} open={open}>
-        {drawerContent === 'sizeForm' ? <SizeForm isSuuccess={handleSizeFormSuccess} /> : <ColorForm isSuuccess={handleSizeFormSuccess} />}
+      <Drawer title="Add Item" placement="right" onClose={onClose} visible={open}>
+        {drawerContent === 'sizeForm' ? <SizeForm isSuuccess={handleSizeFormSuccess} /> : <ColorForm isSuuccess={handleColorFormSuccess} />}
       </Drawer>
     </>
   );

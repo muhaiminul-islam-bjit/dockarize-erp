@@ -27,11 +27,12 @@ class Product extends Model
             'id' => $this->id,
             'product_name' => $this->product_name,
             'selling_price' => $this->selling_price,
-            'initial_stock' => $this->initial_stock,
+            'stock' => $this->product_stock,
             'brand' => $this->brand->brand_name?? '',
             'category' => $this->category->category_name ?? '',
             'size' => $this->size,
             'color' => $this->color,
+           
         ];
     }
 

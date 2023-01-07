@@ -68,12 +68,12 @@ const List: React.FC<ListProps> = () => {
     {
       key: "selling_price",
       dataIndex: "selling_price",
-      title: "selling_price",
+      title: "Selling Price",
     },
     {
-      key: "initial_stock",
-      dataIndex: "initial_stock",
-      title: "initial_stock",
+      key: "stock",
+      dataIndex: "stock",
+      title: "Stock",
     },
     {
       title: "Action",

@@ -314,7 +314,7 @@ function jsPDFInvoiceTemplate(props) {
     currentHeight += maxHeight - 4;
 
     //td border height
-    currentHeight += 5;
+    currentHeight += 7;
         //pre-increase currentHeight to check the height based on next row
         if (index + 1 < tableBodyLength) currentHeight += maxHeight;
 

@@ -10,9 +10,10 @@ import { type } from "os";
 interface AdminProps {
   children: React.ReactNode;
   type: "facit" | "light";
+  noCard?: boolean;
 }
 
-const Admin: React.FC<AdminProps> = ({ children, type }) => {
+const Admin: React.FC<AdminProps> = ({ children, type, noCard }) => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const handleSidebarIconClick = () => {
@@ -42,7 +43,7 @@ const Admin: React.FC<AdminProps> = ({ children, type }) => {
       <div
         className={`dashboard__mainBody ${!sidebarOpen && "dashboard--wide"}`}
       >
-        <MainBody>{children}</MainBody>
+        <MainBody noCard={noCard} >{children}</MainBody>
       </div>
     </div>
   );

@@ -47,4 +47,14 @@ class PurchaseController extends Controller
             return $this->failure($th->getMessage());
         }
     }
+
+    public function getAllInvoiceWithDue($supplierId)
+    {
+        try {
+            $invoices = Purchase::where('supplier_id', $supplierId)->where('due','>',0)->get()->map->allInvoiceWithDue();
+            return $this->success($invoices);
+        } catch (\Throwable $th) {
+            return $this->failure($th->getMessage());
+        }
+    }
 }

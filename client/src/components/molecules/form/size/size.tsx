@@ -15,19 +15,16 @@ const SizeForm: React.FC<SizeFormProps> = ({ isSuuccess }) => {
         size: ''
     });
     const [errors, setErrors] = useState<any>({});
-    const createUrl = "store-customer";
+    const createUrl = "store/size";
     const formObj = {
         size: "",
     };
     const rules: any = {
         size: Joi.string()
-            .min(3)
+            .min(2)
             .max(30)
             .required()
-            .label("Customer Name"),
-        customer_address: Joi.string().min(3).max(100).required().label("Address"),
-        customer_phone: Joi.number().min(3).required().label("Phone"),
-        id: Joi.optional(),
+            .label("Size"),
     };
 
     const handleSubmit = async (e: React.SyntheticEvent) => {

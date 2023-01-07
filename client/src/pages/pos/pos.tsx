@@ -148,7 +148,7 @@ const Pos: React.FC = () => {
 
   const handleProductClick = (item: any) => {
     setModalProduct({
-      price: item.selling_price,
+      price: Math.round(item.selling_price),
       product_name: item.product_name,
       product_id: item.id,
       qty: 1,
@@ -189,11 +189,14 @@ const Pos: React.FC = () => {
 
   const handleDiscountChange = (e: any, i: any) => {
     let cartClone = [...cart];
+    if (parseInt(e.target.value) > 100) {
+      return;
+    }
     cartClone[i]["discount"] = parseInt(e.target.value);
     if (e.target.value) {
-      cartClone[i]["total"] =
+      cartClone[i]["total"] = Math.round(
         parseInt(cartClone[i]["qty"]) * parseInt(cartClone[i]["price"]) -
-        parseInt(cartClone[i]["discount"]);
+        (parseInt(cartClone[i]["qty"]) * parseInt(cartClone[i]["price"]) * (parseInt(cartClone[i]["discount"]) / 100)));
     } else {
       cartClone[i]["discount"] = 0;
       cartClone[i]["total"] =
@@ -202,6 +205,19 @@ const Pos: React.FC = () => {
     }
     setCart(cartClone);
     calculateFinalData(cartClone);
+    // cartClone[i]["discount"] = parseInt(e.target.value);
+    // if (e.target.value) {
+    //   cartClone[i]["total"] =
+    //     parseInt(cartClone[i]["qty"]) * parseInt(cartClone[i]["price"]) -
+    //     parseInt(cartClone[i]["discount"]);
+    // } else {
+    //   cartClone[i]["discount"] = 0;
+    //   cartClone[i]["total"] =
+    //     parseInt(cartClone[i]["qty"]) * parseInt(cartClone[i]["price"]) -
+    //     parseInt(cartClone[i]["discount"]);
+    // }
+    // setCart(cartClone);
+    // calculateFinalData(cartClone);
   };
 
   const handleFinalCalculation = (e: any) => {
@@ -406,7 +422,7 @@ const Pos: React.FC = () => {
                 width: 20,
               },
             },
-            { title: "Less" },
+            { title: "Less(%)" },
             { title: "Amount" },
           ],
           table: cart.map((item: any, index: any) => {
@@ -422,7 +438,7 @@ const Pos: React.FC = () => {
                 : "-",
               item.qty,
               response.data.cart_item[item.product_id].unit,
-              item.price,
+              Math.round(item.price),
               item.discount,
               item.total,
             ];
@@ -517,18 +533,23 @@ const Pos: React.FC = () => {
     }
   };
   const handleFilterProduct = (value: string | string[], completeData: any[]) => {
+    let category: string[] = [];
+    completeData.map((completeItem) => {
+      category.push(completeItem.label);
+    })
     let filteredData;
     setSerachName("");
     if (!completeData.length) {
       filteredData = product;
     } else {
-      completeData.map((completeItem) => {
-        filteredData = product.filter((item: any) => {
-          if (item.category == completeItem.label) {
-            return true;
-          }
-        });
-      })
+      filteredData = product.filter((i: any) => category.includes(i.category))
+      // completeData.map((completeItem) => {
+      //   filteredData = product.filter((item: any) => {
+      //     if (item.category == completeItem.label) {
+      //       return true;
+      //     }
+      //   });
+      // })
     }
     setFilteredProduct(filteredData);
   };
@@ -542,9 +563,9 @@ const Pos: React.FC = () => {
     <PosTemplate>
       <div className="p-pos">
         <div className="p-pos__cart">
-          <Card style={{ height: "95vh", borderRadius: "8px" }}>
+          <Card style={{ borderRadius: "8px" }}>
             <Container margin="8">
-              <Header Tag="h3" text="Customer" />
+              <Header Tag="h2" text="Customer" />
               <div className="p-pos__customer">
                 <Input
                   label={false}
@@ -573,60 +594,61 @@ const Pos: React.FC = () => {
                 </div>
                 <div className="p-pos__element">Qty</div>
                 <div className="p-pos__element">Price</div>
-                <div className="p-pos__element">Discount</div>
+                <div className="p-pos__element">Discount(%)</div>
                 <div className="p-pos__element">Total</div>
               </div>
             </Container>
-            {cart.map((item: any, i: any) => {
-              return (
-                <div className="p-pos__row" key={i}>
-                  <div className="p-pos__element p-pos__element--product">
-                    {item.product_name}
-                  </div>
-                  <div className="p-pos__element">
-                    {" "}
-                    <MinusCircleOutlined
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        decrementCart(i);
-                      }}
-                    />
-                    <span className="p-pos__qty">{item.qty}</span>
-                    <PlusCircleOutlined
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        increment(i);
-                      }}
-                    />
-                  </div>
-                  <div className="p-pos__element">{item.price}</div>
-                  <div className="p-pos__element">
-                    <input
-                      className="p-pos__discount"
-                      type="text"
-                      name="discount"
-                      onChange={(e) => {
-                        handleDiscountChange(e, i);
-                      }}
-                      value={item.discount}
-                    />
-                  </div>
-                  <div className="p-pos__element">{item.total}
-                    <DeleteOutlined
-                      style={{ color: "red", cursor: "pointer", marginLeft: "5px" }}
-                      onClick={() => {
-                        removeCart(i);
-                      }}
-                    />
-                  </div>
-                  {/* <div className="p-pos__remove">
+            <div className="p-pos__rowWrapper">
+              {cart.map((item: any, i: any) => {
+                return (
+                  <div className="p-pos__row" key={i}>
+                    <div className="p-pos__element p-pos__element--product">
+                      {item.product_name}
+                    </div>
+                    <div className="p-pos__element">
+                      {" "}
+                      <MinusCircleOutlined
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          decrementCart(i);
+                        }}
+                      />
+                      <span className="p-pos__qty">{item.qty}</span>
+                      <PlusCircleOutlined
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          increment(i);
+                        }}
+                      />
+                    </div>
+                    <div className="p-pos__element">{item.price}</div>
+                    <div className="p-pos__element">
+                      <input
+                        className="p-pos__discount"
+                        type="text"
+                        name="discount"
+                        onChange={(e) => {
+                          handleDiscountChange(e, i);
+                        }}
+                        value={item.discount}
+                      />
+                    </div>
+                    <div className="p-pos__element">{item.total}
+                      <DeleteOutlined
+                        style={{ color: "red", cursor: "pointer", marginLeft: "5px" }}
+                        onClick={() => {
+                          removeCart(i);
+                        }}
+                      />
+                    </div>
+                    {/* <div className="p-pos__remove">
                     
                   </div> */}
-                </div>
-              );
-            })}
+                  </div>
+                );
+              })}
+            </div>
             <div className="p-pos__calculation">
-              <div></div>
               <div>
                 <div className="p-pos__calculation__item">
                   <span className="p-pos__calculation__label">Date:</span>
@@ -648,23 +670,23 @@ const Pos: React.FC = () => {
                     {finalCalculation.subTotal}
                   </span>
                 </div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
                 <div className="p-pos__calculation__item">
-                  <Container margin="8">
-                    <span className="p-pos__calculation__label">
-                      Discount :
-                    </span>
-                    <span className="p-pos__calculation__value">
-                      <input
-                        className="p-pos__discount"
-                        type="text"
-                        name="discount"
-                        onChange={(e) => {
-                          handleFinalCalculation(e);
-                        }}
-                        value={finalCalculation.discount}
-                      />
-                    </span>
-                  </Container>
+                  <span className="p-pos__calculation__label">
+                    Discount :
+                  </span>
+                  <span className="p-pos__calculation__value">
+                    <input
+                      className="p-pos__discount"
+                      type="text"
+                      name="discount"
+                      onChange={(e) => {
+                        handleFinalCalculation(e);
+                      }}
+                      value={finalCalculation.discount}
+                    />
+                  </span>
                 </div>
                 <div className="p-pos__calculation__item">
                   <Container margin="8">
@@ -684,23 +706,21 @@ const Pos: React.FC = () => {
                     </span>
                   </Container>
                 </div>
-                <div className="p-pos__calculation__item">
-                  <span className="p-pos__calculation__label">Total:</span>
-                  <span className="p-pos__calculation__value">
-                    {finalCalculation.total}
-                  </span>
-                </div>
-                <div className="p-pos__calculation__item">
-                  <Container margin="16">
-                    <ButtonCustom
-                      label="Payment"
-                      onClick={handlePayment}
-                      disabled={false}
-                    />
-                  </Container>
-                </div>
               </div>
             </div>
+            <div className="p-pos__totalWrapper">
+              <span className="p-pos__totalLabel">Total:</span>
+              <span className="p-pos__totalValue">
+                {finalCalculation.total}
+              </span>
+            </div>
+            <Container margin="16">
+              <ButtonCustom
+                label="Payment"
+                onClick={handlePayment}
+                disabled={false}
+              />
+            </Container>
           </Card>
         </div>
         <div className="p-pos__item">
@@ -820,7 +840,7 @@ const Pos: React.FC = () => {
             )}
           </ModalComponent>
 
-          <Card style={{ height: "95vh", borderRadius: "8px" }}>
+          <Card style={{  borderRadius: "8px" }}>
             <Row style={{ marginBottom: '28px' }}>
               <Col span={5}>
                 <Button type="dashed" danger onClick={gotoDashboard}>Dashboard</Button>
@@ -832,13 +852,12 @@ const Pos: React.FC = () => {
                 mode="multiple"
                 size="middle"
                 placeholder="Please select category"
-                defaultValue={['All Category']}
                 onChange={handleFilterProduct}
                 style={{ width: '100%', marginLeft: '10px' }}
                 options={category}
               /></Col>
             </Row>
-            <Container margin="12">
+            <div className="p-pos__itemCard">
               <Row>
                 <Col span={24}>
                   <Row gutter={[16, 16]}>
@@ -863,16 +882,17 @@ const Pos: React.FC = () => {
                             </Container>
                             <Container margin="4">
                               <p className="p-pos__size">
-                                <Badge label={item.size ? item.size : "none"} />
+                                <Badge label={item.size ? item.size : "none"} danger={!item.size} />
                                 &nbsp; | &nbsp;
                                 <Badge
                                   label={item.color ? item.color : "none"}
+                                  danger={!item.color}
                                 />
                               </p>
                             </Container>
                             <Container margin="4">
                               <p className="p-pos__price">
-                                {item.selling_price} Tk
+                                {Math.round(item.selling_price)} Tk
                               </p>
                             </Container>
                           </div>
@@ -882,7 +902,7 @@ const Pos: React.FC = () => {
                   </Row>
                 </Col>
               </Row>
-            </Container>
+            </div>
           </Card>
         </div>
       </div>

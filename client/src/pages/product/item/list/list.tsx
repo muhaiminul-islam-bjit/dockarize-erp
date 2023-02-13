@@ -31,10 +31,18 @@ const List: React.FC<ListProps> = () => {
     let fetchedData: any;
     if (page) {
       fetchedData = await get(
-        listUrl + "?page=" + page + "&perPage=" + pageSize
+        listUrl +
+          "?page=" +
+          page +
+          "&perPage=" +
+          pageSize +
+          "&search=" +
+          searchValue
       );
     } else {
-      fetchedData = await get(listUrl + "?perPage=" + pageSize);
+      fetchedData = await get(
+        listUrl + "?perPage=" + pageSize + "&search=" + searchValue
+      );
     }
     setData(fetchedData.data.data);
     setTotal(fetchedData.data.total);
@@ -103,6 +111,10 @@ const List: React.FC<ListProps> = () => {
     navigate("/product/item/create");
   };
 
+  const handleSearchClick = () => {
+    fetchData();
+  };
+
   useEffect(() => {
     fetchData();
   }, ["data"]);
@@ -112,7 +124,7 @@ const List: React.FC<ListProps> = () => {
       <div className="p-productList">
         <Header Tag="h2" text="All Product" />
         <Container margin="12">
-          <div className="o-list__topBar">
+          <div className="p-productList__topBar">
             <Input
               label={false}
               placeHolder="Search"
@@ -121,6 +133,12 @@ const List: React.FC<ListProps> = () => {
               onChange={handleSearch}
               value={searchValue}
             />
+            <Button
+              label="Search"
+              onClick={handleSearchClick}
+              disabled={false}
+              type="primary"
+            ></Button>
             <Button
               label="Create New"
               onClick={handleCreateNew}

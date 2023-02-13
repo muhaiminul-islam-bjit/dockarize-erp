@@ -1,0 +1,7 @@
+.p-productList {
+  &__topBar {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    column-gap: 10px;
+  }
+}

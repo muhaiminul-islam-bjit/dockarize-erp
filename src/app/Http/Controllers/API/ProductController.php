@@ -16,13 +16,14 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        $searchValue = $request->get('search');
         $product = tap(Product::orderBy('id', 'desc')
             ->select('products.*', DB::raw("(SELECT SUM(product_stocks.stock) FROM product_stocks
         WHERE product_stocks.product_id = products.id
         GROUP BY product_stocks.product_id) as product_stock"),)
-            // ->join('product_stocks', 'products.id', '=', 'product_stocks.product_id')
-            // ->select('products.id','products.product_name','products.selling_price','products.id', DB::raw('SUM(product_stocks.stock) as stock'))
-            // ->groupBy('products.id')
+            ->when($searchValue, function ($query, $searchValue) {
+                $query->where('product_name', 'LIKE', '%' . $searchValue . '%');
+            })
             ->paginate($request->get('perPage'), ['*'], 'page'), function ($data) {
             return $data->getCollection()->transform(function ($value) {
                 return $value->format();
@@ -184,15 +185,5 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return $this->failure($th->getMessage());
         }
-    }
-
-    public function productStock()
-    {
-        // $results = DB::table('orders')
-        //     ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-        //     ->join('products', 'products.id', '=', 'order_items.product_id')
-        //     ->select('orders.user_id', DB::raw('SUM(products.price) as total_spent'))
-        //     ->groupBy('orders.user_id')
-        //     ->get();
     }
 }
